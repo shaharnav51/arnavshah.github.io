@@ -110,7 +110,7 @@
         display: inline-flex;
         align-items: baseline;
         padding-inline: 0.6em;
-        padding-block: 0.3em 1.3em;
+        padding-block: 0.3em 1em; /* reduced bottom padding to raise glow */
       }
 
       .typing-glow::before {
@@ -118,8 +118,8 @@
         position: absolute;
         left: -30%;
         right: -30%;
-        bottom: -0.35em;
-        height: 1.7em;
+        bottom: -0.15em; /* moved glow up slightly */
+        height: 1.5em; /* slightly smaller */
         background: radial-gradient(
           ellipse at center,
           rgba(240, 250, 255, 0.95) 0%,
@@ -128,7 +128,7 @@
           rgba(50, 50, 60, 0.15) 75%,
           transparent 100%
         );
-        filter: blur(32px);
+        filter: blur(28px);
         opacity: 1;
         pointer-events: none;
         z-index: -1;
@@ -180,7 +180,7 @@
         transform: translateY(0);
       }
 
-      /* ======== ABOUT SECTION LAYOUT (INSPIRED BY REFERENCE) ======== */
+      /* ======== ABOUT SECTION ======== */
       .section {
         min-height: 100vh;
         display: flex;
@@ -194,7 +194,6 @@
         max-width: 1200px;
       }
 
-      /* top centred "About Me" */
       .about-header {
         text-align: center;
         margin-bottom: 3rem;
@@ -216,17 +215,11 @@
         opacity: 0.75;
       }
 
-      /* 2-column content like screenshot */
       .about-grid {
         display: grid;
         grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
         gap: 3rem;
         align-items: center;
-      }
-
-      /* LEFT SIDE TEXT BLOCK */
-      .about-heading-block {
-        margin-bottom: 1.5rem;
       }
 
       .about-hello {
@@ -253,7 +246,6 @@
         opacity: 0.85;
       }
 
-      /* quote pill */
       .quote-card {
         margin-top: 1.8rem;
         padding: 0.9rem 1.2rem;
@@ -276,7 +268,6 @@
         opacity: 0.8;
       }
 
-      /* buttons row */
       .about-buttons {
         margin-top: 2rem;
         display: flex;
@@ -306,24 +297,12 @@
         box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
       }
 
-      .btn-primary:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
-      }
-
       .btn-ghost {
         background: transparent;
         color: #f0f4ff;
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      .btn-ghost:hover {
-        background: rgba(255, 255, 255, 0.03);
-        transform: translateY(-1px);
-        border-color: rgba(255, 255, 255, 0.35);
-      }
-
-      /* RIGHT SIDE PROFILE CIRCLE */
       .about-profile {
         display: flex;
         justify-content: center;
@@ -365,38 +344,10 @@
         font-size: 0.9rem;
         text-transform: uppercase;
       }
-
-      /* responsive tweaks */
-      @media (max-width: 1000px) {
-        .about-grid {
-          grid-template-columns: minmax(0, 1fr);
-          gap: 2.5rem;
-        }
-
-        .about-profile {
-          order: -1;
-        }
-
-        .section {
-          padding-top: 4.5rem;
-        }
-
-        .profile-ring {
-          width: 220px;
-          height: 220px;
-        }
-      }
-
-      @media (max-width: 600px) {
-        .section {
-          padding: 4rem 1.25rem 3.5rem;
-        }
-      }
     </style>
   </head>
 
   <body>
-    <!-- INTRO HERO (FULLSCREEN, NO SCROLL) -->
     <section class="hero">
       <div class="hero-inner">
         <h1 class="intro-heading">Welcome To My</h1>
@@ -415,11 +366,9 @@
       </div>
     </section>
 
-    <!-- MAIN SITE CONTENT -->
     <div class="main-site">
       <main id="about" class="section">
         <div class="section-inner">
-          <!-- top centred header -->
           <header class="about-header">
             <h2 class="about-header-title">About Me</h2>
             <p class="about-header-tagline">
@@ -427,14 +376,10 @@
             </p>
           </header>
 
-          <!-- two-column layout like the reference -->
           <div class="about-grid">
-            <!-- LEFT: text -->
             <div class="about-left">
-              <div class="about-heading-block">
-                <p class="about-hello">Hello, I'm</p>
-                <h3 class="about-name">Arnav Shah</h3>
-              </div>
+              <p class="about-hello">Hello, I'm</p>
+              <h3 class="about-name">Arnav Shah</h3>
 
               <p class="about-description">
                 I’m an aspiring engineer with a strong foundation in maths and
@@ -467,12 +412,10 @@
               </div>
             </div>
 
-            <!-- RIGHT: profile circle -->
             <div class="about-profile">
               <div class="profile-ring">
                 <div class="profile-inner">
                   ARNAV&nbsp;SHAH
-                  <!-- later replace with <img src="your-photo.jpg" /> -->
                 </div>
               </div>
             </div>
@@ -489,19 +432,15 @@
         const hero = document.querySelector(".hero");
 
         let index = 0;
-        const delay = 120; // ms per character
+        const delay = 120;
 
         function fadeIntroAndShowSite() {
-          if (!hero) return;
-
           hero.classList.add("hero-fade-out");
-
           hero.addEventListener(
             "animationend",
             () => {
               hero.style.display = "none";
               document.body.classList.add("site-visible");
-              // make sure we end at the top
               window.scrollTo(0, 0);
             },
             { once: true }
@@ -509,20 +448,17 @@
         }
 
         function typeNext() {
-          if (!el) return;
-
           if (index <= text.length) {
             el.textContent = text.slice(0, index);
             index++;
             setTimeout(typeNext, delay);
           } else {
-            if (cursor) cursor.classList.add("typing-done");
             setTimeout(fadeIntroAndShowSite, 250);
           }
         }
 
         window.addEventListener("load", () => {
-          window.scrollTo(0, 0); // force start at very top
+          window.scrollTo(0, 0);
           typeNext();
         });
       })();
