@@ -22,16 +22,30 @@
           #050505 100%
         );
         color: #e6f4ff;
+        overflow: hidden; /* lock scroll during intro */
       }
 
-      /* ======== INTRO HERO ======== */
+      body.site-visible {
+        overflow-y: auto; /* enable scrolling only after intro */
+      }
+
+      /* ======== INTRO HERO (FULLSCREEN OVERLAY) ======== */
       .hero {
+        position: fixed;
+        inset: 0;
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         padding: 0 1.5rem;
+        z-index: 10;
+        background: radial-gradient(
+          circle at top left,
+          #2b2b2b 0%,
+          #1c1c1c 40%,
+          #050505 100%
+        );
       }
 
       .hero-inner {
@@ -166,7 +180,7 @@
         transform: translateY(0);
       }
 
-      /* ======== ABOUT SECTION LAYOUT (LIKE REFERENCE) ======== */
+      /* ======== ABOUT SECTION LAYOUT (INSPIRED BY REFERENCE) ======== */
       .section {
         min-height: 100vh;
         display: flex;
@@ -336,7 +350,12 @@
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        background: radial-gradient(circle at 30% 0, #ffffff, #b9c2ff 35%, #050608 80%);
+        background: radial-gradient(
+          circle at 30% 0,
+          #ffffff,
+          #b9c2ff 35%,
+          #050608 80%
+        );
         display: flex;
         align-items: center;
         justify-content: center;
@@ -377,7 +396,7 @@
   </head>
 
   <body>
-    <!-- INTRO HERO -->
+    <!-- INTRO HERO (FULLSCREEN, NO SCROLL) -->
     <section class="hero">
       <div class="hero-inner">
         <h1 class="intro-heading">Welcome To My</h1>
@@ -418,15 +437,16 @@
               </div>
 
               <p class="about-description">
-                I’m an aspiring engineer with a strong foundation in maths and physics.
-                I enjoy building things that are technically solid and actually useful –
-                from custom PCs and small ventures to more structured engineering
-                and data projects.
+                I’m an aspiring engineer with a strong foundation in maths and
+                physics. I enjoy building things that are technically solid and
+                actually useful – from custom PCs and small ventures to more
+                structured engineering and data projects.
               </p>
               <p class="about-description">
-                Right now I’m focused on developing the skills and experience that will
-                get me into top engineering programmes and set me up to work on
-                real-world problems in energy, transport, and technology.
+                Right now I’m focused on developing the skills and experience
+                that will get me into top engineering programmes and set me up
+                to work on real-world problems in energy, transport, and
+                technology.
               </p>
 
               <div class="quote-card">
@@ -452,7 +472,7 @@
               <div class="profile-ring">
                 <div class="profile-inner">
                   ARNAV&nbsp;SHAH
-                  <!-- later you can replace this with an actual <img> -->
+                  <!-- later replace with <img src="your-photo.jpg" /> -->
                 </div>
               </div>
             </div>
@@ -481,6 +501,8 @@
             () => {
               hero.style.display = "none";
               document.body.classList.add("site-visible");
+              // make sure we end at the top
+              window.scrollTo(0, 0);
             },
             { once: true }
           );
@@ -500,6 +522,7 @@
         }
 
         window.addEventListener("load", () => {
+          window.scrollTo(0, 0); // force start at very top
           typeNext();
         });
       })();
