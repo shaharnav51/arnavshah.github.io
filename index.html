@@ -7,13 +7,20 @@
     <title>Arnav Shah | Portfolio</title>
     <style>
       /* ======== GLOBAL STYLES ======== */
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
         height: 100%;
         width: 100%;
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: radial-gradient(circle at top left, #1c1f47 0, #05071b 45%, #180b35 100%);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: radial-gradient(
+          circle at top left,
+          #1c1f47 0,
+          #05071b 45%,
+          #180b35 100%
+        );
         color: #e6f4ff;
         overflow: hidden;
       }
@@ -32,6 +39,18 @@
         max-width: 720px;
       }
 
+      /* ======== FADE-IN ANIMATION ======== */
+      @keyframes fade-in-up {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
       /* ======== MAIN HEADING ======== */
       .intro-heading {
         font-size: clamp(2.4rem, 4vw, 3.2rem);
@@ -39,9 +58,11 @@
         letter-spacing: 0.04em;
         margin: 0 0 0.5rem;
         color: #f5f7ff;
-        text-shadow:
-          0 0 6px rgba(126, 196, 255, 0.5),
+        text-shadow: 0 0 6px rgba(126, 196, 255, 0.5),
           0 0 14px rgba(109, 92, 255, 0.4);
+        opacity: 0;
+        animation: fade-in-up 0.85s ease-out forwards;
+        animation-delay: 0.1s;
       }
 
       .intro-subheading {
@@ -50,9 +71,10 @@
         letter-spacing: 0.04em;
         margin: 0 0 1.5rem;
         color: #f5f7ff;
-        /* Removed underglow — only slight soft light */
-        text-shadow:
-          0 0 8px rgba(126, 196, 255, 0.4);
+        text-shadow: 0 0 8px rgba(126, 196, 255, 0.4);
+        opacity: 0;
+        animation: fade-in-up 0.9s ease-out forwards;
+        animation-delay: 0.25s;
       }
 
       /* ======== TYPING UNDERGLOW WRAPPER ======== */
@@ -60,26 +82,27 @@
         position: relative;
         display: inline-flex;
         align-items: baseline;
-        padding-inline: 0.45em;
-        padding-block: 0.2em 1em; /* more bottom padding for wider glow */
+        padding-inline: 0.6em;
+        padding-block: 0.3em 1.3em; /* extra bottom padding for big glow */
       }
 
-      /* ======== UNDERGLOW BAR ======== */
+      /* ======== UNDERGLOW BAR (2x SPREAD) ======== */
       .typing-glow::before {
         content: "";
         position: absolute;
-        left: -10%;
-        right: -10%; /* extend further out */
-        bottom: -0.2em;
-        height: 1.2em; /* taller glow spread */
+        left: -30%;
+        right: -30%; /* wider spread left and right */
+        bottom: -0.35em;
+        height: 1.7em; /* taller glow, scales with font size */
         background: radial-gradient(
           ellipse at center,
-          rgba(126, 196, 255, 0.9),
-          rgba(109, 92, 255, 0.5) 45%,
-          rgba(30, 0, 60, 0.15) 75%,
+          rgba(190, 230, 255, 0.95) 0%,
+          rgba(140, 205, 255, 0.8) 22%,
+          rgba(109, 92, 255, 0.55) 40%,
+          rgba(50, 0, 120, 0.22) 70%,
           transparent 100%
         );
-        filter: blur(20px); /* softer, more spread glow */
+        filter: blur(28px); /* softer, more diffused edge */
         opacity: 1;
         pointer-events: none;
         z-index: -1;
@@ -93,9 +116,8 @@
         letter-spacing: 0.06em;
         color: #e6f4ff;
         text-decoration: none;
-        text-shadow:
-          0 0 10px rgba(150, 216, 255, 0.8),
-          0 0 22px rgba(109, 92, 255, 0.7);
+        text-shadow: 0 0 10px rgba(150, 216, 255, 0.85),
+          0 0 24px rgba(109, 92, 255, 0.75);
       }
 
       .typing-text:focus-visible {
@@ -112,10 +134,12 @@
       }
 
       @keyframes cursor-blink {
-        0%, 49% {
+        0%,
+        49% {
           opacity: 1;
         }
-        50%, 100% {
+        50%,
+        100% {
           opacity: 0;
         }
       }
