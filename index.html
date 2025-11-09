@@ -23,10 +23,105 @@
         );
         color: #e6f4ff;
         overflow: hidden; /* lock scroll during intro */
+        scroll-behavior: smooth;
       }
 
       body.site-visible {
         overflow-y: auto; /* enable scrolling only after intro */
+      }
+
+      a {
+        color: inherit;
+      }
+
+      /* ======== TOP NAVBAR ======== */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        z-index: 8; /* hero overlay is above this until it disappears */
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        background: rgba(5, 5, 5, 0.78);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      body.site-visible .top-nav {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+
+      .nav-inner {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .nav-logo {
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        background: linear-gradient(135deg, #c591ff, #7f6dff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .nav-link {
+        position: relative;
+        text-decoration: none;
+        opacity: 0.8;
+        padding-bottom: 2px;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #c591ff, #7f6dff);
+        transform: scaleX(0);
+        transform-origin: center;
+        transition: transform 0.18s ease-out;
+      }
+
+      .nav-link:hover {
+        opacity: 1;
+      }
+
+      .nav-link:hover::after {
+        transform: scaleX(1);
+      }
+
+      @media (max-width: 700px) {
+        .nav-links {
+          gap: 1rem;
+          font-size: 0.85rem;
+        }
       }
 
       /* ======== INTRO HERO (FULLSCREEN OVERLAY) ======== */
@@ -119,7 +214,7 @@
         left: -30%;
         right: -30%;
         bottom: -0.15em; /* moved glow up slightly */
-        height: 1.5em; /* slightly smaller */
+        height: 1.5em;
         background: radial-gradient(
           ellipse at center,
           rgba(240, 250, 255, 0.95) 0%,
@@ -180,13 +275,17 @@
         transform: translateY(0);
       }
 
-      /* ======== ABOUT SECTION ======== */
+      /* ======== SECTIONS ======== */
       .section {
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 5rem 1.5rem 4rem;
+        padding: calc(5rem + 64px) 1.5rem 4rem; /* add nav offset */
+      }
+
+      .section-short {
+        min-height: auto;
       }
 
       .section-inner {
@@ -194,6 +293,7 @@
         max-width: 1200px;
       }
 
+      /* ======== ABOUT SECTION ======== */
       .about-header {
         text-align: center;
         margin-bottom: 3rem;
@@ -297,10 +397,21 @@
         box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
       }
 
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+      }
+
       .btn-ghost {
         background: transparent;
         color: #f0f4ff;
         border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-ghost:hover {
+        background: rgba(255, 255, 255, 0.03);
+        transform: translateY(-1px);
+        border-color: rgba(255, 255, 255, 0.35);
       }
 
       .about-profile {
@@ -344,10 +455,150 @@
         font-size: 0.9rem;
         text-transform: uppercase;
       }
+
+      /* ======== ACCORDION SECTIONS (PROJECTS / EXPERIENCE / CONTACT) ======== */
+      .section-title-row {
+        margin-bottom: 2rem;
+      }
+
+      .section-title-main {
+        font-size: clamp(2rem, 3.2vw, 2.5rem);
+        margin: 0 0 0.3rem;
+      }
+
+      .section-title-sub {
+        margin: 0;
+        font-size: 0.95rem;
+        opacity: 0.75;
+      }
+
+      .accordion {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      details.accordion-item {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+      }
+
+      details.accordion-item[open] {
+        border-color: rgba(197, 145, 255, 0.5);
+      }
+
+      .accordion-summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 1rem 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .accordion-title {
+        font-size: 0.98rem;
+        font-weight: 600;
+      }
+
+      .accordion-tagline {
+        font-size: 0.85rem;
+        opacity: 0.7;
+        margin-top: 0.2rem;
+      }
+
+      .accordion-icon {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        transition: transform 0.2s ease;
+      }
+
+      details[open] .accordion-icon {
+        transform: rotate(90deg);
+      }
+
+      .accordion-content {
+        padding: 0 1.2rem 1rem 1.2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        font-size: 0.9rem;
+        opacity: 0.85;
+        line-height: 1.7;
+      }
+
+      .accordion-meta {
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        opacity: 0.75;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 0.8rem;
+      }
+
+      .contact-item-label {
+        font-size: 0.85rem;
+        opacity: 0.7;
+      }
+
+      .contact-item-value {
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+      }
+
+      @media (max-width: 1000px) {
+        .about-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 2.5rem;
+        }
+
+        .about-profile {
+          order: -1;
+        }
+
+        .section {
+          padding: calc(4.5rem + 64px) 1.25rem 3.5rem;
+        }
+
+        .profile-ring {
+          width: 220px;
+          height: 220px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .section {
+          padding: calc(4rem + 64px) 1.25rem 3.5rem;
+        }
+
+        .nav-inner {
+          padding: 0 1.1rem;
+        }
+      }
     </style>
   </head>
 
   <body>
+    <!-- NAVBAR (visible after intro) -->
+    <header class="top-nav">
+      <div class="nav-inner">
+        <div class="nav-logo">ARNAV&nbsp;SHAH</div>
+        <nav class="nav-links">
+          <a href="#about" class="nav-link">About</a>
+          <a href="#projects" class="nav-link">Projects</a>
+          <a href="#experience" class="nav-link">Experience</a>
+          <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- INTRO HERO (FULLSCREEN, NO SCROLL) -->
     <section class="hero">
       <div class="hero-inner">
         <h1 class="intro-heading">Welcome To My</h1>
@@ -366,7 +617,9 @@
       </div>
     </section>
 
+    <!-- MAIN SITE CONTENT -->
     <div class="main-site">
+      <!-- ABOUT -->
       <main id="about" class="section">
         <div class="section-inner">
           <header class="about-header">
@@ -377,6 +630,7 @@
           </header>
 
           <div class="about-grid">
+            <!-- LEFT: text -->
             <div class="about-left">
               <p class="about-hello">Hello, I'm</p>
               <h3 class="about-name">Arnav Shah</h3>
@@ -412,16 +666,245 @@
               </div>
             </div>
 
+            <!-- RIGHT: profile circle -->
             <div class="about-profile">
               <div class="profile-ring">
                 <div class="profile-inner">
                   ARNAV&nbsp;SHAH
+                  <!-- later replace with <img> if you want -->
                 </div>
               </div>
             </div>
           </div>
         </div>
       </main>
+
+      <!-- PROJECTS (COLLAPSIBLE) -->
+      <section id="projects" class="section section-short">
+        <div class="section-inner">
+          <div class="section-title-row">
+            <h2 class="section-title-main">Projects</h2>
+            <p class="section-title-sub">
+              A few things I’ve built or worked on recently.
+            </p>
+          </div>
+
+          <div class="accordion">
+            <details class="accordion-item" open>
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">
+                    Custom PC Builds & Hardware Optimisation
+                  </div>
+                  <div class="accordion-tagline">
+                    Designing and assembling systems for real clients.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                I’ve planned and built multiple custom PCs, balancing
+                performance, thermals, and budget. This includes component
+                research, compatibility checks, cable management, and stress
+                testing under different workloads such as gaming and light
+                compute tasks.
+                <div class="accordion-meta">
+                  Tech: PC hardware, thermals, PSU sizing, performance
+                  benchmarking.
+                </div>
+              </div>
+            </details>
+
+            <details class="accordion-item">
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">
+                    Portfolio & Web Experiments
+                  </div>
+                  <div class="accordion-tagline">
+                    Minimal, clean web experiences that actually feel good to
+                    use.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                I’m using this portfolio as a space to experiment with motion,
+                simple interactions, and ways of presenting technical projects
+                clearly. The goal is to keep everything fast, readable, and
+                distraction-free.
+                <div class="accordion-meta">
+                  Tech: HTML, CSS, JavaScript, GitHub Pages, basic animation.
+                </div>
+              </div>
+            </details>
+
+            <details class="accordion-item">
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">
+                    Small Ventures & Reselling
+                  </div>
+                  <div class="accordion-tagline">
+                    Turning technical knowledge into something people will pay
+                    for.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                I’ve tested small ventures like reselling items from private
+                manufacturers and offering PC builds. It’s taught me how to
+                price fairly, talk to customers, and keep things organised.
+                <div class="accordion-meta">
+                  Focus: basic business models, pricing, customer communication.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE (COLLAPSIBLE) -->
+      <section id="experience" class="section section-short">
+        <div class="section-inner">
+          <div class="section-title-row">
+            <h2 class="section-title-main">Experience</h2>
+            <p class="section-title-sub">
+              Early experience that’s shaping how I think and work.
+            </p>
+          </div>
+
+          <div class="accordion">
+            <details class="accordion-item" open>
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">
+                    Work Experience & Virtual Programmes
+                  </div>
+                  <div class="accordion-tagline">
+                    Exposure to engineering, logistics, and energy.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                I’ve taken part in placements and virtual programmes that cover
+                areas like logistics, engineering, and the future of energy. A
+                big part of this has been understanding how large systems fit
+                together and what constraints real companies work under.
+                <div class="accordion-meta">
+                  Focus: systems thinking, professional communication, working
+                  with constraints.
+                </div>
+              </div>
+            </details>
+
+            <details class="accordion-item">
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">
+                    Leadership & School Responsibilities
+                  </div>
+                  <div class="accordion-tagline">
+                    Prefect duties, events, and supporting the school community.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                At school I’ve taken on roles like prefect and helping at
+                events. It’s helped me build confidence, stay organised, and be
+                someone people can rely on when things are busy.
+                <div class="accordion-meta">
+                  Skills: communication, responsibility, time management,
+                  teamwork.
+                </div>
+              </div>
+            </details>
+
+            <details class="accordion-item">
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">
+                    Maths & Physics Competitions
+                  </div>
+                  <div class="accordion-tagline">
+                    Pushing problem-solving beyond the classroom.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                I’ve taken part in maths challenges and physics work that
+                forces you to think under pressure and use ideas in unfamiliar
+                ways. That kind of problem-solving is exactly what I want to
+                bring into engineering.
+                <div class="accordion-meta">
+                  Focus: problem solving, abstraction, logical reasoning.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT (COLLAPSIBLE) -->
+      <section id="contact" class="section section-short">
+        <div class="section-inner">
+          <div class="section-title-row">
+            <h2 class="section-title-main">Contact</h2>
+            <p class="section-title-sub">
+              The easiest ways to reach me or keep up with what I’m doing.
+            </p>
+          </div>
+
+          <div class="accordion">
+            <details class="accordion-item" open>
+              <summary class="accordion-summary">
+                <div>
+                  <div class="accordion-title">Get in touch</div>
+                  <div class="accordion-tagline">
+                    Email and links in one place.
+                  </div>
+                </div>
+                <span class="accordion-icon">➜</span>
+              </summary>
+              <div class="accordion-content">
+                <div class="contact-grid">
+                  <div>
+                    <div class="contact-item-label">Email</div>
+                    <div class="contact-item-value">
+                      <!-- replace with your real email when you’re ready -->
+                      arnav@example.com
+                    </div>
+                  </div>
+                  <div>
+                    <div class="contact-item-label">Portfolio</div>
+                    <div class="contact-item-value">
+                      <a href="https://www.arnavshah.co.uk"
+                        >www.arnavshah.co.uk</a
+                      >
+                    </div>
+                  </div>
+                  <div>
+                    <div class="contact-item-label">GitHub</div>
+                    <div class="contact-item-value">
+                      <a href="https://github.com/shaharnav51"
+                        >github.com/shaharnav51</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-meta">
+                  I’m happy to talk about projects, opportunities, or anything
+                  related to engineering and technology.
+                </div>
+              </div>
+            </details>
+          </div>
+        </div>
+      </section>
     </div>
 
     <script>
@@ -432,10 +915,13 @@
         const hero = document.querySelector(".hero");
 
         let index = 0;
-        const delay = 120;
+        const delay = 120; // ms per character
 
         function fadeIntroAndShowSite() {
+          if (!hero) return;
+
           hero.classList.add("hero-fade-out");
+
           hero.addEventListener(
             "animationend",
             () => {
@@ -448,11 +934,14 @@
         }
 
         function typeNext() {
+          if (!el) return;
+
           if (index <= text.length) {
             el.textContent = text.slice(0, index);
             index++;
             setTimeout(typeNext, delay);
           } else {
+            if (cursor) cursor.classList.add("typing-done");
             setTimeout(fadeIntroAndShowSite, 250);
           }
         }
