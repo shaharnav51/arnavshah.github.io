@@ -2,10 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <meta name="description" content="Arnav Shah - Portfolio Website" />
     <title>Arnav Shah | Portfolio</title>
+
     <style>
+      /* ========= GLOBAL ========= */
       html,
       body {
         margin: 0;
@@ -21,19 +26,19 @@
           #050505 100%
         );
         color: #e6f4ff;
-        overflow: hidden;
+        overflow: hidden; /* lock scroll during intro */
         scroll-behavior: smooth;
       }
 
       body.site-visible {
-        overflow-y: auto;
+        overflow-y: auto; /* unlock scroll after intro */
       }
 
       a {
         color: inherit;
       }
 
-      /* ===== NAVBAR ===== */
+      /* ========= NAVBAR ========= */
       .top-nav {
         position: fixed;
         top: 0;
@@ -116,7 +121,14 @@
         transform: scaleX(1);
       }
 
-      /* ===== HERO INTRO ===== */
+      @media (max-width: 700px) {
+        .nav-links {
+          gap: 1rem;
+          font-size: 0.85rem;
+        }
+      }
+
+      /* ========= INTRO HERO ========= */
       .hero {
         position: fixed;
         inset: 0;
@@ -221,6 +233,7 @@
       .typing-text {
         font-size: clamp(1.25rem, 2vw, 1.6rem);
         font-weight: 500;
+        letter-spacing: 0.06em;
         color: #f0f4ff;
         text-decoration: none;
         text-shadow: 0 0 12px rgba(200, 230, 255, 0.9),
@@ -235,22 +248,29 @@
       }
 
       @keyframes cursor-blink {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
+        0%,
+        49% {
+          opacity: 1;
+        }
+        50%,
+        100% {
+          opacity: 0;
+        }
       }
 
-      /* ===== MAIN SITE ===== */
+      /* ========= MAIN SITE WRAPPER ========= */
       .main-site {
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.35s ease, transform 0.35s ease;
       }
+
       body.site-visible .main-site {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* ===== SECTION SPACING FIX ===== */
+      /* ========= SHARED SECTION STYLES (USED BY content.html) ========= */
       .section {
         min-height: 100vh;
         display: flex;
@@ -259,14 +279,280 @@
         padding: calc(2rem + 64px) 1.5rem 3.5rem;
       }
 
+      .section-short {
+        min-height: auto;
+      }
+
       .section-inner {
         width: 100%;
         max-width: 1200px;
       }
 
+      /* About styles */
+      .about-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .about-header-title {
+        font-size: clamp(2.3rem, 3.7vw, 2.9rem);
+        font-weight: 700;
+        margin: 0;
+        background: linear-gradient(135deg, #c591ff, #7f6dff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .about-header-tagline {
+        margin-top: 0.75rem;
+        font-size: 0.98rem;
+        opacity: 0.75;
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-hello {
+        font-size: clamp(2rem, 3vw, 2.4rem);
+        font-weight: 700;
+        margin: 0 0 0.3rem;
+        background: linear-gradient(135deg, #c591ff, #7f6dff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .about-name {
+        font-size: clamp(2.7rem, 4vw, 3.3rem);
+        font-weight: 800;
+        margin: 0;
+        color: #fdfdff;
+      }
+
+      .about-description {
+        margin-top: 1.5rem;
+        font-size: 0.98rem;
+        line-height: 1.7;
+        opacity: 0.85;
+      }
+
+      .quote-card {
+        margin-top: 1.8rem;
+        padding: 0.9rem 1.2rem;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle at top left,
+          rgba(151, 118, 255, 0.45),
+          rgba(37, 34, 65, 0.95)
+        );
+        border: 1px solid rgba(180, 160, 255, 0.5);
+        font-size: 0.9rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: #f4f1ff;
+      }
+
+      .quote-mark {
+        font-size: 1.2rem;
+        opacity: 0.8;
+      }
+
+      .about-buttons {
+        margin-top: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .btn {
+        border-radius: 999px;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        transition: transform 0.15s ease, box-shadow 0.15s ease,
+          background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #c591ff, #7f6dff);
+        color: #fdfdff;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: #f0f4ff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .about-profile {
+        display: flex;
+        justify-content: center;
+      }
+
+      .profile-ring {
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at center,
+          rgba(205, 173, 255, 0.9),
+          rgba(59, 46, 138, 0.4),
+          rgba(5, 5, 8, 1)
+        );
+        box-shadow: 0 0 60px rgba(149, 118, 255, 0.75);
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .profile-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 0,
+          #ffffff,
+          #b9c2ff 35%,
+          #050608 80%
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #05070b;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+      }
+
+      /* Accordion (Projects / Experience / Contact) */
+      .section-title-row {
+        margin-bottom: 2rem;
+      }
+
+      .section-title-main {
+        font-size: clamp(2rem, 3.2vw, 2.5rem);
+        margin: 0 0 0.3rem;
+      }
+
+      .section-title-sub {
+        margin: 0;
+        font-size: 0.95rem;
+        opacity: 0.75;
+      }
+
+      .accordion {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      details.accordion-item {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.6);
+        overflow: hidden;
+      }
+
+      details.accordion-item[open] {
+        border-color: rgba(197, 145, 255, 0.5);
+      }
+
+      .accordion-summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 1rem 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .accordion-title {
+        font-size: 0.98rem;
+        font-weight: 600;
+      }
+
+      .accordion-tagline {
+        font-size: 0.85rem;
+        opacity: 0.7;
+        margin-top: 0.2rem;
+      }
+
+      .accordion-icon {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        transition: transform 0.2s ease;
+      }
+
+      details[open] .accordion-icon {
+        transform: rotate(90deg);
+      }
+
+      .accordion-content {
+        padding: 0 1.2rem 1rem 1.2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        font-size: 0.9rem;
+        opacity: 0.85;
+        line-height: 1.7;
+      }
+
+      .accordion-meta {
+        margin-top: 0.6rem;
+        font-size: 0.8rem;
+        opacity: 0.75;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin-top: 0.8rem;
+      }
+
+      .contact-item-label {
+        font-size: 0.85rem;
+        opacity: 0.7;
+      }
+
+      .contact-item-value {
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+      }
+
       @media (max-width: 1000px) {
         .section {
           padding: calc(2rem + 64px) 1.25rem 3rem;
+        }
+
+        .about-grid {
+          grid-template-columns: minmax(0, 1fr);
+          gap: 2.5rem;
+        }
+
+        .about-profile {
+          order: -1;
+        }
+
+        .profile-ring {
+          width: 220px;
+          height: 220px;
         }
       }
 
@@ -279,6 +565,7 @@
   </head>
 
   <body>
+    <!-- NAVBAR -->
     <header class="top-nav">
       <div class="nav-inner">
         <div class="nav-logo">ARNAV&nbsp;SHAH</div>
@@ -291,10 +578,12 @@
       </div>
     </header>
 
+    <!-- INTRO HERO -->
     <section class="hero">
       <div class="hero-inner">
         <h1 class="intro-heading">Welcome To My</h1>
         <h2 class="intro-subheading">Portfolio Website</h2>
+
         <div class="typing-glow">
           <a
             href="https://www.arnavshah.co.uk"
@@ -308,51 +597,8 @@
       </div>
     </section>
 
-    <div class="main-site">
-      <main id="about" class="section">
-        <div class="section-inner">
-          <h2>About Me</h2>
-          <p>Hello, I'm <strong>Arnav Shah</strong> – aspiring engineer...</p>
-        </div>
-      </main>
-
-      <section id="projects" class="section section-short">
-        <div class="section-inner">
-          <h2>Projects</h2>
-          <details open>
-            <summary>Custom PC Builds</summary>
-            <p>Planned and assembled multiple PC systems...</p>
-          </details>
-          <details>
-            <summary>Portfolio Website</summary>
-            <p>Built this site to showcase my projects...</p>
-          </details>
-        </div>
-      </section>
-
-      <section id="experience" class="section section-short">
-        <div class="section-inner">
-          <h2>Experience</h2>
-          <details open>
-            <summary>Work Experience at DHL</summary>
-            <p>Logistics and efficiency exposure...</p>
-          </details>
-          <details>
-            <summary>Prefect Duties</summary>
-            <p>Leadership and communication development...</p>
-          </details>
-        </div>
-      </section>
-
-      <section id="contact" class="section section-short">
-        <div class="section-inner">
-          <h2>Contact</h2>
-          <p>Email: <a href="mailto:arnav@example.com">arnav@example.com</a></p>
-          <p>GitHub: <a href="https://github.com/shaharnav51">shaharnav51</a></p>
-          <p>Portfolio: <a href="https://www.arnavshah.co.uk">arnavshah.co.uk</a></p>
-        </div>
-      </section>
-    </div>
+    <!-- MAIN SITE CONTENT (INJECTED FROM content.html) -->
+    <div class="main-site" id="main-site"></div>
 
     <script>
       (function () {
@@ -360,8 +606,25 @@
         const el = document.getElementById("typing-text");
         const cursor = document.querySelector(".typing-cursor");
         const hero = document.querySelector(".hero");
+        const mainSite = document.getElementById("main-site");
+
         let index = 0;
         const delay = 120;
+
+        function loadContent() {
+          if (!mainSite) return;
+
+          fetch("content.html")
+            .then((res) => res.text())
+            .then((html) => {
+              mainSite.innerHTML = html;
+            })
+            .catch((err) => {
+              console.error("Error loading content.html", err);
+              mainSite.innerHTML =
+                '<div class="section"><div class="section-inner"><p>Failed to load content.</p></div></div>';
+            });
+        }
 
         function fadeIntroAndShowSite() {
           hero.classList.add("hero-fade-out");
@@ -374,6 +637,7 @@
             },
             { once: true }
           );
+          loadContent();
         }
 
         function typeNext() {
