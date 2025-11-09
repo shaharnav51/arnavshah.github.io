@@ -15,7 +15,7 @@
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         background: radial-gradient(circle at top left, #1c1f47 0, #05071b 45%, #180b35 100%);
         color: #e6f4ff;
-        overflow: hidden; /* keeps intro centred cleanly */
+        overflow: hidden;
       }
 
       /* ======== HERO SECTION ======== */
@@ -32,17 +32,27 @@
         max-width: 720px;
       }
 
-      /* ======== HEADING GLOW ======== */
+      /* ======== MAIN HEADING ======== */
       .intro-heading {
         font-size: clamp(2.4rem, 4vw, 3.2rem);
         font-weight: 700;
         letter-spacing: 0.04em;
-        margin: 0 0 1.25rem;
+        margin: 0 0 0.5rem;
         color: #f5f7ff;
         text-shadow:
-          0 0 16px rgba(126, 196, 255, 0.8),
-          0 0 36px rgba(109, 92, 255, 0.7),
-          0 0 72px rgba(88, 150, 255, 0.65);
+          0 0 6px rgba(126, 196, 255, 0.5),
+          0 0 14px rgba(109, 92, 255, 0.4);
+      }
+
+      .intro-subheading {
+        font-size: clamp(2.2rem, 3.5vw, 3rem);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        margin: 0 0 1.5rem;
+        color: #f5f7ff;
+        /* Removed underglow — only slight soft light */
+        text-shadow:
+          0 0 8px rgba(126, 196, 255, 0.4);
       }
 
       /* ======== TYPING UNDERGLOW WRAPPER ======== */
@@ -51,25 +61,26 @@
         display: inline-flex;
         align-items: baseline;
         padding-inline: 0.45em;
-        padding-block: 0.2em 0.7em; /* extra space below for glow */
+        padding-block: 0.2em 1em; /* more bottom padding for wider glow */
       }
 
       /* ======== UNDERGLOW BAR ======== */
       .typing-glow::before {
         content: "";
         position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0.05em;
-        height: 0.55em;
+        left: -10%;
+        right: -10%; /* extend further out */
+        bottom: -0.2em;
+        height: 1.2em; /* taller glow spread */
         background: radial-gradient(
           ellipse at center,
-          rgba(126, 196, 255, 0.7),
-          rgba(126, 196, 255, 0.3) 40%,
-          transparent 75%
+          rgba(126, 196, 255, 0.9),
+          rgba(109, 92, 255, 0.5) 45%,
+          rgba(30, 0, 60, 0.15) 75%,
+          transparent 100%
         );
-        filter: blur(10px);
-        opacity: 0.9;
+        filter: blur(20px); /* softer, more spread glow */
+        opacity: 1;
         pointer-events: none;
         z-index: -1;
       }
@@ -81,13 +92,12 @@
         font-weight: 500;
         letter-spacing: 0.06em;
         color: #e6f4ff;
-        text-decoration: none;  /* removes underline */
+        text-decoration: none;
         text-shadow:
-          0 0 8px rgba(150, 216, 255, 0.7),
-          0 0 18px rgba(109, 92, 255, 0.65);
+          0 0 10px rgba(150, 216, 255, 0.8),
+          0 0 22px rgba(109, 92, 255, 0.7);
       }
 
-      /* Removes default focus outline */
       .typing-text:focus-visible {
         outline: none;
       }
@@ -115,7 +125,8 @@
   <body>
     <section class="hero">
       <div class="hero-inner">
-        <h1 class="intro-heading">Welcome to my portfolio website</h1>
+        <h1 class="intro-heading">Welcome To My</h1>
+        <h2 class="intro-subheading">Portfolio Website</h2>
 
         <div class="typing-glow">
           <a
@@ -147,7 +158,6 @@
             index++;
             setTimeout(typeNext, delay);
           } else {
-            // keep cursor blinking when finished
             cursor && cursor.classList.add("typing-done");
           }
         }
