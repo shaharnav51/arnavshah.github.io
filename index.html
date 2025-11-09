@@ -25,28 +25,28 @@
         overflow: hidden; /* lock scroll during intro */
         scroll-behavior: smooth;
       }
-      /* ======== CUSTOM SCROLLBAR ======== */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #7f6dff, #c591ff);
-  border-radius: 999px;
-  border: 2px solid #0a0a0a;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #9b84ff, #d1a8ff);
-}
-
 
       body.site-visible {
         overflow-y: auto; /* enable scrolling only after intro */
+      }
+
+      /* ======== CUSTOM SCROLLBAR ======== */
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #0a0a0a;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #7f6dff, #c591ff);
+        border-radius: 999px;
+        border: 2px solid #0a0a0a;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(135deg, #9b84ff, #d1a8ff);
       }
 
       a {
@@ -224,31 +224,29 @@
         display: inline-flex;
         align-items: baseline;
         padding-inline: 0.6em;
-        padding-block: 0.3em 1em; /* reduced bottom padding to raise glow */
+        padding-block: 0.3em 1em;
       }
 
-    .typing-glow::before {
-  content: "";
-  position: absolute;
-  left: -18%;
-  right: -18%;
-  top: -0.4em;
-  bottom: -0.4em;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(240, 250, 255, 0.9) 0%,
-    rgba(180, 220, 255, 0.55) 25%,
-    rgba(120, 180, 255, 0.25) 50%,
-    rgba(50, 50, 60, 0.1) 75%,
-    transparent 100%
-  );
-  filter: blur(26px);
-  opacity: 1;
-  pointer-events: none;
-  z-index: -1;
-}
-
-
+      .typing-glow::before {
+        content: "";
+        position: absolute;
+        left: -18%;
+        right: -18%;
+        top: -0.4em;
+        bottom: -0.4em;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(240, 250, 255, 0.9) 0%,
+          rgba(180, 220, 255, 0.55) 25%,
+          rgba(120, 180, 255, 0.25) 50%,
+          rgba(50, 50, 60, 0.1) 75%,
+          transparent 100%
+        );
+        filter: blur(26px);
+        opacity: 1;
+        pointer-events: none;
+        z-index: -1;
+      }
 
       .typing-text {
         position: relative;
@@ -297,7 +295,7 @@
       }
 
       /* ======== SECTIONS ======== */
-      
+      .section {
         min-height: 100vh;
         display: flex;
         align-items: center;
