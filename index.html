@@ -49,27 +49,29 @@
         transform-origin: center center;
       }
 
-      /* Zoom-to-camera animation */
+      /* Zoom towards camera – starts moderate, then accelerates.
+         No blur so the quality + backlight stay crisp. */
       @keyframes hero-zoom-fly {
         0% {
           transform: scale(1);
           opacity: 1;
-          filter: blur(0);
         }
-        60% {
-          transform: scale(6);
+        35% {
+          transform: scale(2);
           opacity: 1;
-          filter: blur(0.5px);
+        }
+        70% {
+          transform: scale(6);
+          opacity: 0.98;
         }
         100% {
-          transform: scale(16);
+          transform: scale(14);
           opacity: 0;
-          filter: blur(6px);
         }
       }
 
       .hero-inner.hero-zoom-out {
-        animation: hero-zoom-fly 1.1s ease-in forwards;
+        animation: hero-zoom-fly 0.95s cubic-bezier(0.25, 0.5, 0.85, 1) forwards;
       }
 
       /* ======== FADE-IN INTRO TEXT ======== */
@@ -279,7 +281,12 @@
         height: 220px;
         border-radius: 50%;
         margin: 0 auto;
-        background: radial-gradient(circle at 30% 0, #ffffff, #cfd6ff 35%, #101010 70%);
+        background: radial-gradient(
+          circle at 30% 0,
+          #ffffff,
+          #cfd6ff 35%,
+          #101010 70%
+        );
         box-shadow: 0 0 45px rgba(150, 200, 255, 0.65);
         display: flex;
         align-items: center;
@@ -378,13 +385,12 @@
         const cursor = document.querySelector(".typing-cursor");
         const heroInner = document.querySelector(".hero-inner");
         const hero = document.querySelector(".hero");
-        const mainSite = document.querySelector(".main-site");
 
         let index = 0;
         const delay = 120; // ms per character
 
         function startZoomToSite() {
-          if (!heroInner || !hero || !mainSite) return;
+          if (!heroInner || !hero) return;
 
           heroInner.classList.add("hero-zoom-out");
 
@@ -407,16 +413,12 @@
             setTimeout(typeNext, delay);
           } else {
             if (cursor) cursor.classList.add("typing-done");
-            // brief pause, then zoom the text all the way in and reveal site
+            // brief pause, then accelerated zoom into the camera
             setTimeout(startZoomToSite, 550);
           }
         }
 
         window.addEventListener("load", () => {
-          // show main site behind intro (hidden via opacity until site-visible)
-          if (mainSite) {
-            mainSite.style.minHeight = "100vh";
-          }
           typeNext();
         });
       })();
