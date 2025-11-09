@@ -296,21 +296,11 @@
 
       /* ======== SECTIONS ======== */
       .section {
-        min-height: 100vh;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        padding: calc(5rem + 64px) 1.5rem 4rem; /* add nav offset */
+        padding: calc(3rem + 64px) 1.5rem 3.5rem; /* navbar offset + flow gap */
       }
-      /* tighten gaps between sections */
-.about-header {
-  margin-bottom: 2rem;
-}
-
-.section-title-row {
-  margin-bottom: 1.2rem;
-}
-
 
       .section-short {
         min-height: auto;
@@ -324,7 +314,7 @@
       /* ======== ABOUT SECTION ======== */
       .about-header {
         text-align: center;
-        margin-bottom: 3rem;
+        margin-bottom: 2.5rem; /* slightly tighter but still clear */
       }
 
       .about-header-title {
@@ -486,7 +476,7 @@
 
       /* ======== ACCORDION SECTIONS (PROJECTS / EXPERIENCE / CONTACT) ======== */
       .section-title-row {
-        margin-bottom: 2rem;
+        margin-bottom: 1.6rem; /* slightly tighter between heading and cards */
       }
 
       .section-title-main {
@@ -591,7 +581,7 @@
         }
 
         .section {
-          padding: calc(4.5rem + 64px) 1.25rem 3.5rem;
+          padding: calc(3rem + 64px) 1.25rem 3rem;
         }
 
         .profile-ring {
@@ -602,7 +592,7 @@
 
       @media (max-width: 600px) {
         .section {
-          padding: calc(4rem + 64px) 1.25rem 3.5rem;
+          padding: calc(3rem + 64px) 1.25rem 3rem;
         }
 
         .nav-inner {
