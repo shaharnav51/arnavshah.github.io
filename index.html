@@ -208,13 +208,13 @@
         padding-block: 0.3em 1em; /* reduced bottom padding to raise glow */
       }
 
-     .typing-glow::before {
+    .typing-glow::before {
   content: "";
   position: absolute;
-  left: -25%;
-  right: -25%;
-  top: -0.6em;
-  bottom: -0.6em;
+  left: -18%;
+  right: -18%;
+  top: -0.4em;
+  bottom: -0.4em;
   background: radial-gradient(
     ellipse at center,
     rgba(240, 250, 255, 0.9) 0%,
@@ -223,11 +223,12 @@
     rgba(50, 50, 60, 0.1) 75%,
     transparent 100%
   );
-  filter: blur(28px);
+  filter: blur(26px);
   opacity: 1;
   pointer-events: none;
   z-index: -1;
 }
+
 
 
       .typing-text {
