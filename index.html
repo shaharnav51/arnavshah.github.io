@@ -1,357 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Arnav Shah | Portfolio</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Arnav Shah - Portfolio Website" />
+    <title>Arnav Shah | Portfolio</title>
+    <style>
+      /* ======== GLOBAL STYLES ======== */
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at top left, #1c1f47 0, #05071b 45%, #180b35 100%);
+        color: #e6f4ff;
+        overflow: hidden; /* keeps intro centred cleanly */
+      }
 
-  <style>
-    :root {
-      --bg-gradient: radial-gradient(circle at top left, #312e81 0, #040016 55%, #020617 100%);
-      --accent-1: #6366f1;
-      --accent-2: #a855f7;
-      --text-main: #f9fafb;
-      --text-muted: #cbd5f5;
-    }
+      /* ======== HERO SECTION ======== */
+      .hero {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 1.5rem;
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      .hero-inner {
+        max-width: 720px;
+      }
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text-main);
-      background: var(--bg-gradient);
-      min-height: 100vh;
-    }
+      /* ======== HEADING GLOW ======== */
+      .intro-heading {
+        font-size: clamp(2.4rem, 4vw, 3.2rem);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        margin: 0 0 1.25rem;
+        color: #f5f7ff;
+        text-shadow:
+          0 0 16px rgba(126, 196, 255, 0.8),
+          0 0 36px rgba(109, 92, 255, 0.7),
+          0 0 72px rgba(88, 150, 255, 0.65);
+      }
 
-    /* INTRO OVERLAY */
-    .intro-overlay {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-gradient);
-      z-index: 999;
-      transition: opacity 0.9s ease;
-    }
+      /* ======== TYPING UNDERGLOW WRAPPER ======== */
+      .typing-glow {
+        position: relative;
+        display: inline-flex;
+        align-items: baseline;
+        padding-inline: 0.45em;
+        padding-block: 0.2em 0.7em; /* extra space below for glow */
+      }
 
-    .intro-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
+      /* ======== UNDERGLOW BAR ======== */
+      .typing-glow::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0.05em;
+        height: 0.55em;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(126, 196, 255, 0.7),
+          rgba(126, 196, 255, 0.3) 40%,
+          transparent 75%
+        );
+        filter: blur(10px);
+        opacity: 0.9;
+        pointer-events: none;
+        z-index: -1;
+      }
 
-    .intro-content {
-      text-align: center;
-      padding: 20px;
-    }
+      /* ======== TYPING TEXT ======== */
+      .typing-text {
+        position: relative;
+        font-size: clamp(1.25rem, 2vw, 1.6rem);
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        color: #e6f4ff;
+        text-decoration: none;  /* removes underline */
+        text-shadow:
+          0 0 8px rgba(150, 216, 255, 0.7),
+          0 0 18px rgba(109, 92, 255, 0.65);
+      }
 
-.intro-heading {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 700;
-  margin-bottom: 26px;
-  background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  text-shadow:
-    0 0 10px rgba(99, 102, 241, 0.6),
-    0 0 20px rgba(99, 102, 241, 0.5),
-    0 0 40px rgba(168, 85, 247, 0.4);
-  animation: glowPulse 3s ease-in-out infinite;
-}
+      /* Removes default focus outline */
+      .typing-text:focus-visible {
+        outline: none;
+      }
 
-@keyframes glowPulse {
-  0%, 100% {
-    text-shadow:
-      0 0 8px rgba(99, 102, 241, 0.5),
-      0 0 20px rgba(99, 102, 241, 0.3),
-      0 0 35px rgba(168, 85, 247, 0.3);
-  }
-  50% {
-    text-shadow:
-      0 0 15px rgba(99, 102, 241, 0.8),
-      0 0 30px rgba(168, 85, 247, 0.6),
-      0 0 50px rgba(168, 85, 247, 0.4);
-  }
-}
+      /* ======== CURSOR ======== */
+      .typing-cursor {
+        display: inline-block;
+        margin-left: 0.15em;
+        font-size: 1.1em;
+        opacity: 1;
+        animation: cursor-blink 0.9s steps(2, start) infinite;
+      }
 
-
-    .intro-url-box {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 220px;
-      padding: 10px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      background: rgba(15, 23, 42, 0.92);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .intro-url-text {
-      font-family: "SF Mono", Menlo, Monaco, Consolas, monospace;
-      white-space: pre;
-    }
-
-    .intro-cursor {
-      display: inline-block;
-      width: 8px;
-      height: 16px;
-      margin-left: 3px;
-      background: var(--accent-1);
-      animation: intro-cursor-blink 0.8s steps(1) infinite;
-    }
-
-    @keyframes intro-cursor-blink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-
-    /* MAIN CONTENT */
-    main {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 120px 20px 100px;
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.4fr);
-      gap: 56px;
-      align-items: center;
-    }
-
-    /* LEFT SIDE */
-    .hero-kicker {
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: #a5b4fc;
-      margin-bottom: 8px;
-    }
-
-    .hero-hello {
-      font-size: clamp(32px, 4vw, 40px);
-      font-weight: 700;
-      margin: 0;
-      background: linear-gradient(90deg, var(--accent-2), var(--accent-1));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-name {
-      font-size: clamp(44px, 5vw, 54px);
-      font-weight: 800;
-      margin: 4px 0 22px;
-    }
-
-    .hero-body {
-      font-size: 15px;
-      line-height: 1.8;
-      color: var(--text-muted);
-      max-width: 640px;
-      margin-bottom: 22px;
-    }
-
-    .hero-quote {
-      margin-bottom: 28px;
-      padding: 14px 20px;
-      border-radius: 999px;
-      background: radial-gradient(circle at top left, rgba(129, 140, 248, 0.28), rgba(15, 23, 42, 0.98));
-      border: 1px solid rgba(129, 140, 248, 0.6);
-      font-size: 14px;
-      color: #e5e7eb;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-quote-mark {
-      font-size: 20px;
-      color: #a5b4fc;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 18px;
-      margin-bottom: 40px;
-    }
-
-    .hero-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 14px 30px;
-      border-radius: 999px;
-      font-size: 15px;
-      font-weight: 500;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease, border-color 0.16s ease;
-    }
-
-    .hero-btn-primary {
-      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
-      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.7);
-      color: #f9fafb;
-    }
-
-    .hero-btn-secondary {
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      color: #e5e7eb;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-      max-width: 880px;
-    }
-
-    .hero-stat-card {
-      padding: 22px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(15, 23, 42, 0.96), rgba(30, 64, 175, 0.55));
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-    }
-
-    .hero-stat-number { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
-    .hero-stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: #94a3b8; margin-bottom: 6px; }
-    .hero-stat-desc { font-size: 13px; color: var(--text-muted); }
-
-    .hero-photo-wrap { display: flex; justify-content: center; }
-
-    .hero-photo-circle {
-      width: 280px;
-      height: 280px;
-      border-radius: 999px;
-      padding: 6px;
-      background: radial-gradient(circle at top left, rgba(129,140,248,0.9), rgba(79,70,229,0.3)), radial-gradient(circle at bottom right, rgba(236,72,153,0.8), rgba(15,23,42,1));
-      box-shadow: 0 30px 70px rgba(15, 23, 42, 1);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-photo-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 999px;
-      overflow: hidden;
-      border: 2px solid rgba(15, 23, 42, 0.9);
-      background: #020617;
-    }
-
-    .hero-photo-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    @media (max-width: 980px) {
-      main { padding-top: 100px; }
-      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
-      .hero-photo-wrap { order: -1; }
-      .hero-stats { grid-template-columns: 1fr; }
-    }
-  </style>
-</head>
-<body>
-  <div class="intro-overlay" id="intro">
-    <div class="intro-content">
-      <div class="intro-heading">Welcome to my portfolio website</div>
-      <div class="intro-url-box">
-        <span class="intro-url-text" id="intro-url"></span>
-        <span class="intro-cursor" id="intro-cursor"></span>
-      </div>
-    </div>
-  </div>
-
-  <main>
-    <div class="hero-inner">
-      <div>
-        <div class="hero-kicker">Network & Telecom Student</div>
-        <h1 class="hero-hello">Hello, I'm</h1>
-        <h2 class="hero-name">Arnav Shah</h2>
-
-        <p class="hero-body">I’m an aspiring engineer passionate about innovation, design and problem-solving. Through projects, academics and work experiences, I enjoy using physics and mathematics to build practical and impactful solutions.</p>
-
-        <div class="hero-quote">
-          <span class="hero-quote-mark">“</span>
-          <span>Engineering is about turning good ideas into reality — with precision, creativity and responsibility.</span>
-        </div>
-
-        <div class="hero-actions">
-          <a class="hero-btn hero-btn-primary" href="#" target="_blank">Download CV</a>
-          <a class="hero-btn hero-btn-secondary" href="#projects">View Projects</a>
-        </div>
-
-        <div class="hero-stats">
-          <div class="hero-stat-card">
-            <div class="hero-stat-number">3</div>
-            <div class="hero-stat-label">Projects</div>
-            <div class="hero-stat-desc">Academic and personal engineering projects.</div>
-          </div>
-          <div class="hero-stat-card">
-            <div class="hero-stat-number">4</div>
-            <div class="hero-stat-label">Competitions</div>
-            <div class="hero-stat-desc">STEM and engineering-related events.</div>
-          </div>
-          <div class="hero-stat-card">
-            <div class="hero-stat-number">∞</div>
-            <div class="hero-stat-label">Curiosity</div>
-            <div class="hero-stat-desc">Continuous learning and experimentation.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="hero-photo-wrap">
-        <div class="hero-photo-circle">
-          <div class="hero-photo-inner">
-            <img src="https://via.placeholder.com/500x500.png?text=Your+Photo" alt="Arnav Shah portrait">
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const urlText = "www.arnavshah.co.uk";
-      const urlEl = document.getElementById("intro-url");
-      const cursorEl = document.getElementById("intro-cursor");
-      const introEl = document.getElementById("intro");
-
-      let i = 0;
-      function typeNext() {
-        if (i <= urlText.length) {
-          urlEl.textContent = urlText.slice(0, i);
-          i++;
-          setTimeout(typeNext, 120);
-        } else {
-          setTimeout(() => {
-            cursorEl.style.display = "none";
-            introEl.classList.add("hidden");
-          }, 900);
+      @keyframes cursor-blink {
+        0%, 49% {
+          opacity: 1;
+        }
+        50%, 100% {
+          opacity: 0;
         }
       }
-      setTimeout(typeNext, 500);
-    });
-  </script>
-</body>
+    </style>
+  </head>
+
+  <body>
+    <section class="hero">
+      <div class="hero-inner">
+        <h1 class="intro-heading">Welcome to my portfolio website</h1>
+
+        <div class="typing-glow">
+          <a
+            href="https://www.arnavshah.co.uk"
+            class="typing-text"
+            id="typing-text"
+            target="_blank"
+            rel="noopener noreferrer"
+          ></a>
+          <span class="typing-cursor">|</span>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      (function () {
+        const text = "www.arnavshah.co.uk";
+        const el = document.getElementById("typing-text");
+        const cursor = document.querySelector(".typing-cursor");
+
+        let index = 0;
+        const delay = 120; // ms per character
+
+        function typeNext() {
+          if (!el) return;
+
+          if (index <= text.length) {
+            el.textContent = text.slice(0, index);
+            index++;
+            setTimeout(typeNext, delay);
+          } else {
+            // keep cursor blinking when finished
+            cursor && cursor.classList.add("typing-done");
+          }
+        }
+
+        window.addEventListener("load", typeNext);
+      })();
+    </script>
+  </body>
 </html>
