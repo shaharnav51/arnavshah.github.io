@@ -17,9 +17,9 @@
           sans-serif;
         background: radial-gradient(
           circle at top left,
-          #1c1f47 0,
-          #05071b 45%,
-          #180b35 100%
+          #2b2b2b 0%,
+          #1c1c1c 40%,
+          #0c0c0c 100%
         );
         color: #e6f4ff;
         overflow: hidden;
@@ -58,8 +58,7 @@
         letter-spacing: 0.04em;
         margin: 0 0 0.5rem;
         color: #f5f7ff;
-        text-shadow: 0 0 6px rgba(126, 196, 255, 0.5),
-          0 0 14px rgba(109, 92, 255, 0.4);
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
         opacity: 0;
         animation: fade-in-up 0.85s ease-out forwards;
         animation-delay: 0.1s;
@@ -71,7 +70,7 @@
         letter-spacing: 0.04em;
         margin: 0 0 1.5rem;
         color: #f5f7ff;
-        text-shadow: 0 0 8px rgba(126, 196, 255, 0.4);
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         opacity: 0;
         animation: fade-in-up 0.9s ease-out forwards;
         animation-delay: 0.25s;
@@ -83,26 +82,26 @@
         display: inline-flex;
         align-items: baseline;
         padding-inline: 0.6em;
-        padding-block: 0.3em 1.3em; /* extra bottom padding for big glow */
+        padding-block: 0.3em 1.3em;
       }
 
-      /* ======== UNDERGLOW BAR (2x SPREAD) ======== */
+      /* ======== UNDERGLOW BAR (2x SPREAD, COOL WHITE-BLUE) ======== */
       .typing-glow::before {
         content: "";
         position: absolute;
         left: -30%;
-        right: -30%; /* wider spread left and right */
+        right: -30%;
         bottom: -0.35em;
-        height: 1.7em; /* taller glow, scales with font size */
+        height: 1.7em;
         background: radial-gradient(
           ellipse at center,
-          rgba(190, 230, 255, 0.95) 0%,
-          rgba(140, 205, 255, 0.8) 22%,
-          rgba(109, 92, 255, 0.55) 40%,
-          rgba(50, 0, 120, 0.22) 70%,
+          rgba(240, 250, 255, 0.95) 0%,
+          rgba(180, 220, 255, 0.65) 25%,
+          rgba(120, 180, 255, 0.35) 50%,
+          rgba(50, 50, 60, 0.15) 75%,
           transparent 100%
         );
-        filter: blur(28px); /* softer, more diffused edge */
+        filter: blur(32px);
         opacity: 1;
         pointer-events: none;
         z-index: -1;
@@ -114,10 +113,10 @@
         font-size: clamp(1.25rem, 2vw, 1.6rem);
         font-weight: 500;
         letter-spacing: 0.06em;
-        color: #e6f4ff;
+        color: #f0f4ff;
         text-decoration: none;
-        text-shadow: 0 0 10px rgba(150, 216, 255, 0.85),
-          0 0 24px rgba(109, 92, 255, 0.75);
+        text-shadow: 0 0 12px rgba(200, 230, 255, 0.9),
+          0 0 26px rgba(150, 200, 255, 0.75);
       }
 
       .typing-text:focus-visible {
@@ -172,7 +171,7 @@
         const cursor = document.querySelector(".typing-cursor");
 
         let index = 0;
-        const delay = 120; // ms per character
+        const delay = 120;
 
         function typeNext() {
           if (!el) return;
