@@ -22,56 +22,40 @@
           #0c0c0c 100%
         );
         color: #e6f4ff;
-        overflow: hidden; /* no scroll during intro */
       }
 
       body.site-visible {
-        overflow: auto; /* enable scroll after intro */
+        /* when intro is done, allow a tiny lift for main content */
       }
 
-      /* ======== INTRO HERO OVERLAY ======== */
+      /* ======== INTRO HERO ======== */
       .hero {
-        position: fixed;
-        inset: 0;
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         text-align: center;
         padding: 0 1.5rem;
-        z-index: 10;
-        pointer-events: none;
       }
 
       .hero-inner {
         max-width: 720px;
-        pointer-events: auto;
-        transform-origin: center center;
       }
 
-      /* Zoom towards camera – starts moderate, then accelerates.
-         No blur so the quality + backlight stay crisp. */
-      @keyframes hero-zoom-fly {
-        0% {
-          transform: scale(1);
+      /* quick fade-out for hero */
+      @keyframes hero-fade-out {
+        from {
           opacity: 1;
+          transform: translateY(0);
         }
-        35% {
-          transform: scale(2);
-          opacity: 1;
-        }
-        70% {
-          transform: scale(6);
-          opacity: 0.98;
-        }
-        100% {
-          transform: scale(14);
+        to {
           opacity: 0;
+          transform: translateY(-10px);
         }
       }
 
-      .hero-inner.hero-zoom-out {
-        animation: hero-zoom-fly 0.95s cubic-bezier(0.25, 0.5, 0.85, 1) forwards;
+      .hero.hero-fade-out {
+        animation: hero-fade-out 0.4s ease-out forwards;
       }
 
       /* ======== FADE-IN INTRO TEXT ======== */
@@ -94,8 +78,8 @@
         color: #f5f7ff;
         text-shadow: 0 0 8px rgba(255, 255, 255, 0.25);
         opacity: 0;
-        animation: fade-in-up 0.85s ease-out forwards;
-        animation-delay: 0.1s;
+        animation: fade-in-up 0.7s ease-out forwards;
+        animation-delay: 0.05s;
       }
 
       .intro-subheading {
@@ -106,8 +90,8 @@
         color: #f5f7ff;
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
         opacity: 0;
-        animation: fade-in-up 0.9s ease-out forwards;
-        animation-delay: 0.25s;
+        animation: fade-in-up 0.7s ease-out forwards;
+        animation-delay: 0.15s;
       }
 
       /* ======== TYPING + UNDERGLOW ======== */
@@ -177,8 +161,8 @@
       /* ======== MAIN SITE CONTENT ======== */
       .main-site {
         opacity: 0;
-        transform: translateY(10px);
-        transition: opacity 0.55s ease, transform 0.55s ease;
+        transform: translateY(8px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
       }
 
       body.site-visible .main-site {
@@ -316,7 +300,7 @@
   </head>
 
   <body>
-    <!-- INTRO HERO (ZOOMS TOWARDS YOU, THEN VANISHES) -->
+    <!-- INTRO HERO -->
     <section class="hero">
       <div class="hero-inner">
         <h1 class="intro-heading">Welcome To My</h1>
@@ -383,18 +367,17 @@
         const text = "www.arnavshah.co.uk";
         const el = document.getElementById("typing-text");
         const cursor = document.querySelector(".typing-cursor");
-        const heroInner = document.querySelector(".hero-inner");
         const hero = document.querySelector(".hero");
 
         let index = 0;
         const delay = 120; // ms per character
 
-        function startZoomToSite() {
-          if (!heroInner || !hero) return;
+        function fadeIntroAndShowSite() {
+          if (!hero) return;
 
-          heroInner.classList.add("hero-zoom-out");
+          hero.classList.add("hero-fade-out");
 
-          heroInner.addEventListener(
+          hero.addEventListener(
             "animationend",
             () => {
               hero.style.display = "none";
@@ -413,8 +396,8 @@
             setTimeout(typeNext, delay);
           } else {
             if (cursor) cursor.classList.add("typing-done");
-            // brief pause, then accelerated zoom into the camera
-            setTimeout(startZoomToSite, 550);
+            // quick pause then fast fade
+            setTimeout(fadeIntroAndShowSite, 250);
           }
         }
 
