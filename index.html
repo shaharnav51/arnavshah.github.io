@@ -6,7 +6,6 @@
     <meta name="description" content="Arnav Shah - Portfolio Website" />
     <title>Arnav Shah | Portfolio</title>
     <style>
-      /* ======== GLOBAL STYLES ======== */
       html,
       body {
         margin: 0;
@@ -22,19 +21,19 @@
           #050505 100%
         );
         color: #e6f4ff;
-        overflow: hidden; /* lock scroll during intro */
+        overflow: hidden;
         scroll-behavior: smooth;
       }
 
       body.site-visible {
-        overflow-y: auto; /* enable scrolling after intro */
+        overflow-y: auto;
       }
 
       a {
         color: inherit;
       }
 
-      /* ======== TOP NAVBAR ======== */
+      /* ===== NAVBAR ===== */
       .top-nav {
         position: fixed;
         top: 0;
@@ -117,14 +116,7 @@
         transform: scaleX(1);
       }
 
-      @media (max-width: 700px) {
-        .nav-links {
-          gap: 1rem;
-          font-size: 0.85rem;
-        }
-      }
-
-      /* ======== INTRO HERO ======== */
+      /* ===== HERO INTRO ===== */
       .hero {
         position: fixed;
         inset: 0;
@@ -227,10 +219,8 @@
       }
 
       .typing-text {
-        position: relative;
         font-size: clamp(1.25rem, 2vw, 1.6rem);
         font-weight: 500;
-        letter-spacing: 0.06em;
         color: #f0f4ff;
         text-decoration: none;
         text-shadow: 0 0 12px rgba(200, 230, 255, 0.9),
@@ -241,7 +231,6 @@
         display: inline-block;
         margin-left: 0.15em;
         font-size: 1.1em;
-        opacity: 1;
         animation: cursor-blink 0.9s steps(2, start) infinite;
       }
 
@@ -250,25 +239,29 @@
         50%, 100% { opacity: 0; }
       }
 
-      /* ======== MAIN SITE CONTENT ======== */
+      /* ===== MAIN SITE ===== */
       .main-site {
         opacity: 0;
         transform: translateY(8px);
         transition: opacity 0.35s ease, transform 0.35s ease;
       }
-
       body.site-visible .main-site {
         opacity: 1;
         transform: translateY(0);
       }
 
-      /* ======== FIXED SECTION SPACING ======== */
+      /* ===== SECTION SPACING FIX ===== */
       .section {
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: calc(2rem + 64px) 1.5rem 3.5rem;
+      }
+
+      .section-inner {
+        width: 100%;
+        max-width: 1200px;
       }
 
       @media (max-width: 1000px) {
@@ -302,7 +295,6 @@
       <div class="hero-inner">
         <h1 class="intro-heading">Welcome To My</h1>
         <h2 class="intro-subheading">Portfolio Website</h2>
-
         <div class="typing-glow">
           <a
             href="https://www.arnavshah.co.uk"
@@ -317,7 +309,49 @@
     </section>
 
     <div class="main-site">
-      <!-- FULL ABOUT / PROJECTS / EXPERIENCE / CONTACT GOES HERE (UNCHANGED) -->
+      <main id="about" class="section">
+        <div class="section-inner">
+          <h2>About Me</h2>
+          <p>Hello, I'm <strong>Arnav Shah</strong> – aspiring engineer...</p>
+        </div>
+      </main>
+
+      <section id="projects" class="section section-short">
+        <div class="section-inner">
+          <h2>Projects</h2>
+          <details open>
+            <summary>Custom PC Builds</summary>
+            <p>Planned and assembled multiple PC systems...</p>
+          </details>
+          <details>
+            <summary>Portfolio Website</summary>
+            <p>Built this site to showcase my projects...</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="experience" class="section section-short">
+        <div class="section-inner">
+          <h2>Experience</h2>
+          <details open>
+            <summary>Work Experience at DHL</summary>
+            <p>Logistics and efficiency exposure...</p>
+          </details>
+          <details>
+            <summary>Prefect Duties</summary>
+            <p>Leadership and communication development...</p>
+          </details>
+        </div>
+      </section>
+
+      <section id="contact" class="section section-short">
+        <div class="section-inner">
+          <h2>Contact</h2>
+          <p>Email: <a href="mailto:arnav@example.com">arnav@example.com</a></p>
+          <p>GitHub: <a href="https://github.com/shaharnav51">shaharnav51</a></p>
+          <p>Portfolio: <a href="https://www.arnavshah.co.uk">arnavshah.co.uk</a></p>
+        </div>
+      </section>
     </div>
 
     <script>
